@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đội ngũ bác sĩ — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Đội ngũ y bác sĩ</span>
+    <h1>Danh sách bác sĩ</h1>
+    <p>Đầy đủ thông tin bằng cấp, kinh nghiệm, lịch làm việc để bạn lựa chọn bác sĩ phù hợp.</p>
+
+    <div class="card card-body" style="margin-bottom:28px">
+      <div class="form-row">
+        <div class="form-group mb-0">
+          <label>Lọc theo chuyên khoa</label>
+          <select id="filter-specialty"><option value="">Tất cả chuyên khoa</option></select>
+        </div>
+        <div class="form-group mb-0">
+          <label>Lọc theo phòng khám</label>
+          <select id="filter-clinic"><option value="">Tất cả phòng khám</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-3" id="doctors-list"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+async function initFilters() {
+  const specialties = await apiFetch('/specialties');
+  const clinics = await apiFetch('/clinics');
+  document.getElementById('filter-specialty').innerHTML += specialties.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  document.getElementById('filter-clinic').innerHTML += clinics.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+async function loadDoctors() {
+  const mount = document.getElementById('doctors-list');
+  mount.innerHTML = '<div class="spinner"></div>';
+  const sp = document.getElementById('filter-specialty').value;
+  const cl = document.getElementById('filter-clinic').value;
+  const qs = new URLSearchParams();
+  if (sp) qs.set('specialty_id', sp);
+  if (cl) qs.set('clinic_id', cl);
+  const { doctors } = await apiFetch('/doctors?' + qs.toString());
+  if (!doctors.length) { mount.innerHTML = '<div class="empty-state"><div class="icon">🩺</div>Không tìm thấy bác sĩ phù hợp.</div>'; return; }
+  mount.innerHTML = doctors.map(d => `
+    <div class="card card-body">
+      <div class="flex gap-12">
+        <img src="${d.image}" alt="${d.full_name}" style="width:64px;height:64px;border-radius:50%;flex-shrink:0">
+        <div>
+          <h4 class="mb-0">${d.full_name}</h4>
+          <span class="badge">${d.specialty_name}</span>
+          <div class="rating mt-8">⭐ ${d.rating} / 5</div>
+        </div>
+      </div>
+      <ul style="font-size:13.5px;margin-top:14px;padding-left:18px">
+        <li>🎓 ${d.degree} — ${d.education}</li>
+        <li>📅 ${d.experience_years} năm kinh nghiệm</li>
+        <li>🏥 ${d.clinic_name}</li>
+        <li>🗺️ ${d.clinic_address}</li>
+        <li>🕐 Lịch khám: ${d.schedule}</li>
+        <li>💰 Phí khám: ${formatVND(d.consultation_fee)}</li>
+      </ul>
+      <p style="font-size:13.5px;margin-top:8px">${d.bio}</p>
+      <a href="/booking.html?doctor_id=${d.id}" class="btn btn-primary btn-sm btn-block mt-8">Đặt lịch với bác sĩ này</a>
+    </div>`).join('');
+}
+
+document.getElementById('filter-specialty').addEventListener('change', loadDoctors);
+document.getElementById('filter-clinic').addEventListener('change', loadDoctors);
+
+initFilters().then(loadDoctors);
+</script>
+</body>
+</html>

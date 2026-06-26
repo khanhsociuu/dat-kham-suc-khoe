@@ -1,0 +1,9 @@
+faq_id,keywords,answer
+FQ01,"đặt lịch,đặt hẹn,book,cách đặt","Để đặt lịch khám, bạn vào mục 'Đặt lịch khám' trên thanh menu, chọn phòng khám gần bạn, chọn chuyên khoa hoặc nhập triệu chứng, chọn bác sĩ, chọn ngày giờ mong muốn rồi bấm Xác nhận đặt lịch. Hệ thống sẽ tự kiểm tra trùng lịch giúp bạn."
+FQ02,"giá,chi phí,bao nhiêu tiền,phí khám","Bạn có thể xem chi tiết bảng giá các dịch vụ khám, xét nghiệm tại mục 'Bảng giá' trên thanh menu. Giá khám dao động từ 170.000đ đến 990.000đ tùy chuyên khoa và gói khám."
+FQ03,"địa chỉ,ở đâu,gần nhà,phòng khám nào gần","Bạn vào mục 'Phòng khám', hệ thống sẽ liệt kê các phòng khám kèm địa chỉ cụ thể và khoảng cách ước tính từ vị trí của bạn để chọn nơi gần nhất."
+FQ04,"hủy lịch,đổi lịch,hủy hẹn","Bạn vào mục 'Lịch hẹn của tôi' sau khi đăng nhập để xem, đổi hoặc hủy lịch hẹn đã đặt. Nếu cần hỗ trợ thêm vui lòng để lại số điện thoại, nhân viên sẽ gọi lại hỗ trợ bạn."
+FQ05,"bác sĩ giỏi,bác sĩ nào,chuyên khoa nào","Bạn có thể xem danh sách đầy đủ bác sĩ kèm bằng cấp, kinh nghiệm, đánh giá tại mục 'Đội ngũ bác sĩ'. Bạn cũng có thể lọc theo chuyên khoa phù hợp với triệu chứng của mình."
+FQ06,"sốt,ho,đau đầu,đau bụng,mệt mỏi","Với các triệu chứng như sốt, ho, đau đầu, đau bụng thông thường, bạn nên đặt lịch khám chuyên khoa Nội tổng quát. Nếu triệu chứng nặng hoặc kéo dài, vui lòng đến cơ sở y tế gần nhất ngay."
+FQ07,"xin chào,hello,hi,chào","Xin chào! Tôi là trợ lý ảo của hệ thống đặt lịch khám sức khỏe online. Tôi có thể giúp bạn tìm phòng khám, bác sĩ, đặt lịch hoặc tra cứu bảng giá. Bạn cần hỗ trợ gì ạ?"
+FQ08,"liên hệ,hotline,số điện thoại,nhân viên tư vấn","Hiện tại chưa có nhân viên trực tuyến, bạn có thể để lại câu hỏi tại đây hoặc gọi hotline 1900-0000 (giờ hành chính) để được hỗ trợ trực tiếp."

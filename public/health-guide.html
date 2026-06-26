@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cẩm nang sức khỏe — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Kiến thức y khoa</span>
+    <h1>Cẩm nang sức khỏe</h1>
+    <p>Tổng hợp kiến thức giúp bạn hiểu rõ hơn về sức khỏe của mình và biết khi nào cần đi khám.</p>
+
+    <div class="form-row" style="max-width:680px">
+      <div class="form-group"><input type="text" id="search-input" placeholder="🔍 Tìm bài viết..."></div>
+      <div class="form-group"><select id="category-filter"><option value="">Tất cả chủ đề</option></select></div>
+    </div>
+
+    <div id="article-list" class="grid grid-3"><div class="spinner"></div></div>
+    <div id="article-detail" style="display:none"></div>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+let all = [];
+async function load() {
+  all = await apiFetch('/articles');
+  const cats = [...new Set(all.map(a => a.category))];
+  document.getElementById('category-filter').innerHTML += cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  renderList(all);
+
+  const id = new URLSearchParams(location.search).get('id');
+  if (id) showDetail(id);
+}
+function renderList(items) {
+  const mount = document.getElementById('article-list');
+  if (!items.length) { mount.innerHTML = '<div class="empty-state"><div class="icon">📰</div>Không tìm thấy bài viết.</div>'; return; }
+  mount.innerHTML = items.map(a => `
+    <div class="card" style="cursor:pointer" data-id="${a.id}">
+      <img class="card-img" src="${a.image}" alt="${a.title}">
+      <div class="card-body">
+        <span class="badge">${a.category}</span>
+        <h4 class="mt-8">${a.title}</h4>
+        <p style="font-size:14px">${a.summary}</p>
+      </div>
+    </div>`).join('');
+  mount.querySelectorAll('[data-id]').forEach(el => el.addEventListener('click', () => showDetail(el.dataset.id)));
+}
+function showDetail(id) {
+  const a = all.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('article-list').style.display = 'none';
+  const box = document.getElementById('article-detail');
+  box.style.display = 'block';
+  box.innerHTML = `
+    <button class="btn btn-outline btn-sm" id="back-list">← Tất cả bài viết</button>
+    <div class="card mt-16" style="max-width:760px">
+      <img class="card-img" style="height:300px" src="${a.image}" alt="${a.title}">
+      <div class="card-body">
+        <span class="badge">${a.category}</span>
+        <h2 class="mt-8">${a.title}</h2>
+        <p style="font-size:16px;line-height:1.8">${a.content}</p>
+      </div>
+    </div>`;
+  document.getElementById('back-list').addEventListener('click', () => {
+    box.style.display = 'none'; document.getElementById('article-list').style.display = 'grid';
+    history.replaceState(null, '', '/health-guide.html');
+  });
+}
+function applyFilters() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const cat = document.getElementById('category-filter').value;
+  renderList(all.filter(a => (!cat || a.category === cat) && (!q || a.title.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q))));
+}
+document.getElementById('search-input').addEventListener('input', applyFilters);
+document.getElementById('category-filter').addEventListener('change', applyFilters);
+load();
+</script>
+</body>
+</html>

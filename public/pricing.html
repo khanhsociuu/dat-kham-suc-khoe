@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảng giá dịch vụ — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Minh bạch chi phí</span>
+    <h1>Bảng giá dịch vụ khám chữa bệnh</h1>
+    <p>Giá tham khảo áp dụng chung cho hệ thống phòng khám liên kết. Phí khám cụ thể của từng bác sĩ được hiển thị tại trang hồ sơ bác sĩ.</p>
+
+    <div class="tabs" id="category-tabs"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dịch vụ</th><th>Đơn vị</th><th>Mô tả</th><th>Giá</th></tr></thead>
+        <tbody id="pricing-body"><tr><td colspan="4"><div class="spinner"></div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+let allPricing = [];
+async function loadPricing() {
+  allPricing = await apiFetch('/pricing');
+  const categories = ['Tất cả', ...new Set(allPricing.map(p => p.category))];
+  document.getElementById('category-tabs').innerHTML = categories.map((c,i) =>
+    `<button class="tab-btn ${i===0?'active':''}" data-cat="${c}">${c}</button>`).join('');
+  document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    renderTable(b.dataset.cat);
+  }));
+  renderTable('Tất cả');
+}
+function renderTable(cat) {
+  const rows = cat === 'Tất cả' ? allPricing : allPricing.filter(p => p.category === cat);
+  document.getElementById('pricing-body').innerHTML = rows.map(p => `
+    <tr><td><b>${p.service_name}</b></td><td>${p.unit}</td><td style="font-size:13.5px;color:var(--ink-500)">${p.description}</td>
+    <td><b style="color:var(--coral-600)">${formatVND(p.price)}</b></td></tr>`).join('');
+}
+loadPricing();
+</script>
+</body>
+</html>

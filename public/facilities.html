@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cơ sở vật chất — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Trang thiết bị & không gian khám</span>
+    <h1>Cơ sở vật chất</h1>
+    <p>Hệ thống phòng khám liên kết được đầu tư trang thiết bị hiện đại, không gian sạch sẽ, thân thiện, giúp bạn yên tâm khi đến khám.</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div id="loading" class="center" style="padding:40px"><div class="spinner" style="margin:0 auto"></div></div>
+    <div class="grid grid-2" id="facility-list"></div>
+    <div id="empty-state" class="empty-state" style="display:none">
+      <div class="icon">🏗️</div>
+      <p>Chưa có thông tin cơ sở vật chất nào.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight" style="background:var(--mint-100)">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Tổng quan</span>
+      <h2>Không gian phòng khám thực tế</h2>
+    </div>
+    <div class="grid grid-3">
+      <img src="https://picsum.photos/seed/facility-overview1/420/300" style="border-radius:14px;width:100%;height:200px;object-fit:cover" alt="Sảnh chờ phòng khám">
+      <img src="https://picsum.photos/seed/facility-overview2/420/300" style="border-radius:14px;width:100%;height:200px;object-fit:cover" alt="Phòng khám bệnh">
+      <img src="https://picsum.photos/seed/facility-overview3/420/300" style="border-radius:14px;width:100%;height:200px;object-fit:cover" alt="Phòng xét nghiệm">
+    </div>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+async function loadFacilities() {
+  try {
+    const facilities = await apiFetch('/facilities');
+    document.getElementById('loading').style.display = 'none';
+
+    if (!facilities.length) {
+      document.getElementById('empty-state').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('facility-list').innerHTML = facilities.map(f => `
+      <div class="card">
+        <img class="card-img"
+             style="height:200px;object-fit:cover"
+             src="${f.image || 'https://picsum.photos/seed/' + f.id + '/600/360'}"
+             alt="${f.title}"
+             onerror="this.src='https://picsum.photos/seed/default/600/360'">
+        <div class="card-body">
+          <div class="flex gap-12" style="align-items:center">
+            <div class="icon-circle">${f.icon || '🏥'}</div>
+            <h4 class="mb-0">${f.title}</h4>
+          </div>
+          <p class="mt-16" style="font-size:14.5px;line-height:1.7">${f.description}</p>
+        </div>
+      </div>`).join('');
+  } catch (e) {
+    document.getElementById('loading').innerHTML = '<p class="muted">Không tải được dữ liệu. Vui lòng thử lại.</p>';
+  }
+}
+
+loadFacilities();
+</script>
+</body>
+</html>

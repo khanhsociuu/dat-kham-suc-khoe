@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng khám gần bạn — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Tìm phòng khám thuận tiện</span>
+    <h1>Danh sách phòng khám</h1>
+    <p>Chọn khu vực nơi bạn ở để hệ thống tính khoảng cách (giả lập) và gợi ý phòng khám gần nhất.</p>
+
+    <div class="card card-body" style="margin-bottom:28px;max-width:480px">
+      <div class="form-group mb-0">
+        <label for="home-area">📍 Khu vực của bạn</label>
+        <select id="home-area">
+          <option value="">— Chọn khu vực để xem khoảng cách —</option>
+          <option value="21.0285,105.8048">Hoàn Kiếm, Hà Nội</option>
+          <option value="21.0070,105.7950">Cầu Giấy, Hà Nội</option>
+          <option value="20.9930,105.8010">Thanh Xuân, Hà Nội</option>
+          <option value="21.0167,105.8520">Hai Bà Trưng, Hà Nội</option>
+          <option value="21.0095,105.8290">Đống Đa, Hà Nội</option>
+          <option value="20.9890,105.8410">Hoàng Mai, Hà Nội</option>
+          <option value="10.7769,106.7009">Quận 1, TP. Hồ Chí Minh</option>
+          <option value="10.7980,106.6790">Phú Nhuận, TP. Hồ Chí Minh</option>
+        </select>
+        <p class="field-hint">* Vì hệ thống chưa tích hợp GPS thật, khoảng cách được tính từ toạ độ trung tâm khu vực bạn chọn (mô phỏng theo đúng yêu cầu đề bài).</p>
+      </div>
+    </div>
+
+    <div class="grid grid-3" id="clinics-list"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+let allClinics = [];
+
+async function loadClinics(lat, lng) {
+  const mount = document.getElementById('clinics-list');
+  mount.innerHTML = '<div class="spinner"></div>';
+  const url = lat && lng ? `/clinics?lat=${lat}&lng=${lng}` : '/clinics';
+  const data = await apiFetch(url);
+  allClinics = data;
+  if (!data.length) { mount.innerHTML = '<div class="empty-state"><div class="icon">🏥</div>Chưa có phòng khám nào.</div>'; return; }
+  mount.innerHTML = data.map(c => `
+    <div class="card">
+      <img class="card-img" src="${c.image}" alt="${c.name}">
+      <div class="card-body">
+        ${c.distance_km !== undefined ? `<span class="badge badge-coral">📍 Cách bạn ${c.distance_km} km</span>` : ''}
+        <h4 class="mt-8">${c.name}</h4>
+        <p style="font-size:14px">🗺️ ${c.address}, ${c.district}, ${c.city}</p>
+        <p style="font-size:13px" class="muted">⏰ ${c.opening_hours}<br>☎️ ${c.phone}</p>
+        <p style="font-size:13.5px">${c.description}</p>
+        <a href="/booking.html?clinic_id=${c.id}" class="btn btn-primary btn-sm btn-block">Đặt lịch tại đây</a>
+      </div>
+    </div>`).join('');
+}
+
+document.getElementById('home-area').addEventListener('change', (e) => {
+  if (!e.target.value) { loadClinics(); return; }
+  const [lat, lng] = e.target.value.split(',');
+  loadClinics(lat, lng);
+});
+
+loadClinics();
+</script>
+</body>
+</html>

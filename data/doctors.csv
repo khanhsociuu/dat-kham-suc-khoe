@@ -1,0 +1,15 @@
+doctor_id,full_name,specialty_id,clinic_id,degree,experience_years,education,bio,gender,schedule,consultation_fee,rating
+DR01,BS.CKI Nguyễn Văn Hùng,SP01,CL01,"Bác sĩ CKI",15,"Đại học Y Hà Nội","Hơn 15 năm kinh nghiệm khám và điều trị nội khoa tổng quát, từng công tác tại Bệnh viện Bạch Mai.",Nam,"T2-T6: 7:00-11:30, 13:30-17:00",200000,4.8
+DR02,ThS.BS Trần Thị Lan,SP01,CL02,"Thạc sĩ - Bác sĩ",10,"Đại học Y Dược TP.HCM","Chuyên khám các bệnh lý nội khoa thường gặp, tận tâm và nhẹ nhàng với bệnh nhân.",Nữ,"T2-T7: 7:30-12:00",180000,4.7
+DR03,PGS.TS Lê Văn Đức,SP02,CL02,"Phó Giáo sư - Tiến sĩ",22,"Đại học Y Hà Nội","Nguyên trưởng khoa Tim mạch một bệnh viện tuyến trung ương, chuyên sâu siêu âm tim, điện tim.",Nam,"T2,T4,T6: 8:00-16:00",350000,4.9
+DR04,BS.CKII Phạm Thị Hoa,SP02,CL01,"Bác sĩ CKII",18,"Đại học Y Hà Nội","Chuyên điều trị tăng huyết áp, suy tim, rối loạn nhịp tim.",Nữ,"T3,T5,T7: 8:00-16:00",300000,4.8
+DR05,BS.CKI Đỗ Minh Tuấn,SP03,CL04,"Bác sĩ CKI",12,"Đại học Y Dược Huế","Nhi khoa, giàu kinh nghiệm khám cho trẻ sơ sinh và trẻ nhỏ.",Nam,"T2-CN: 7:00-19:00",170000,4.9
+DR06,ThS.BS Vũ Thị Mai,SP03,CL04,"Thạc sĩ - Bác sĩ",9,"Đại học Y Hà Nội","Chuyên tư vấn dinh dưỡng và tiêm chủng cho trẻ.",Nữ,"T2-T7: 7:00-17:00",170000,4.7
+DR07,BS.CKII Hoàng Văn Nam,SP04,CL04,"Bác sĩ CKII",20,"Đại học Y Hà Nội","Chuyên khám thai, siêu âm tiền sản và phụ khoa.",Nam,"T2-T6: 7:30-16:30",250000,4.8
+DR08,BS.CKI Ngô Thị Thu,SP04,CL06,"Bác sĩ CKI",11,"Đại học Y Dược TP.HCM","Tư vấn sức khỏe sinh sản, khám phụ khoa định kỳ.",Nữ,"T2-CN: 7:00-19:00",220000,4.6
+DR09,BS.CKII Bùi Văn Long,SP05,CL03,"Bác sĩ CKII",19,"Học viện Quân y","Chuyên chấn thương chỉnh hình, phẫu thuật xương khớp.",Nam,"T2-T7: 7:30-17:00",280000,4.9
+DR10,ThS.BS Đặng Thị Hằng,SP05,CL03,"Thạc sĩ - Bác sĩ",8,"Đại học Y Hà Nội","Điều trị thoát vị đĩa đệm, vật lý trị liệu phục hồi chức năng.",Nữ,"T2-T6: 8:00-17:00",230000,4.6
+DR11,BS.CKI Phan Văn Sơn,SP06,CL05,"Bác sĩ CKI",13,"Đại học Y Dược TP.HCM","Chuyên điều trị mụn, viêm da cơ địa, thẩm mỹ da bằng laser.",Nam,"T2-T7: 8:00-17:30",250000,4.7
+DR12,BS.CKI Lý Thị Ngọc,SP07,CL05,"Bác sĩ CKI",10,"Đại học Y Hà Nội","Chuyên khoa Tai Mũi Họng, nội soi tai mũi họng không đau.",Nữ,"T2-CN: 7:30-20:00",200000,4.7
+DR13,BS.CKII Trịnh Văn Bình,SP08,CL05,"Bác sĩ CKII",16,"Đại học Y Hà Nội","Khám và điều trị các bệnh về mắt, đo khúc xạ, mổ cận thị.",Nam,"T3,T5,T7: 8:00-16:30",230000,4.8
+DR14,ThS.BS Nguyễn Thị Quỳnh,SP09,CL06,"Thạc sĩ - Bác sĩ",14,"Đại học Y Dược TP.HCM","Chuyên điều trị đái tháo đường, rối loạn tuyến giáp.",Nữ,"T2-T6: 7:00-16:00",260000,4.8

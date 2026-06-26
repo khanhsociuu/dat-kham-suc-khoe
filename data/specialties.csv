@@ -1,0 +1,10 @@
+specialty_id,name,description,keywords
+SP01,Nội tổng quát,"Khám và điều trị các bệnh lý nội khoa thông thường","sốt,ho,sổ mũi,đau đầu,mệt mỏi,cảm cúm,đau bụng,tiêu chảy,chóng mặt,đau họng"
+SP02,Tim mạch,"Khám và điều trị các bệnh lý về tim và mạch máu","đau ngực,khó thở,hồi hộp,tim đập nhanh,huyết áp cao,huyết áp thấp,tức ngực"
+SP03,Nhi khoa,"Khám và điều trị bệnh cho trẻ em từ sơ sinh đến 15 tuổi","trẻ sốt,trẻ ho,trẻ biếng ăn,trẻ quấy khóc,phát ban ở trẻ,tiêu chảy ở trẻ,trẻ chậm lớn"
+SP04,Sản phụ khoa,"Khám thai, theo dõi sức khỏe sinh sản và phụ khoa","đau bụng kinh,rối loạn kinh nguyệt,khám thai,ra huyết âm đạo,viêm phụ khoa,khó có con"
+SP05,Ngoại khoa - Chấn thương chỉnh hình,"Khám và điều trị chấn thương, bệnh lý xương khớp cần can thiệp ngoại khoa","gãy xương,đau khớp,trật khớp,chấn thương thể thao,đau lưng,thoát vị đĩa đệm,bong gân"
+SP06,Da liễu,"Khám và điều trị các bệnh lý về da, tóc, móng","mụn,nổi mẩn,ngứa da,viêm da,nấm da,rụng tóc,dị ứng da,mề đay"
+SP07,Tai Mũi Họng,"Khám và điều trị các bệnh lý tai, mũi, họng","viêm họng,viêm xoang,ù tai,nghẹt mũi,viêm amidan,chảy mũi,đau tai"
+SP08,Mắt,"Khám và điều trị các bệnh lý về mắt","mờ mắt,đau mắt,khô mắt,đỏ mắt,cận thị,viêm kết mạc"
+SP09,Nội tiết - Đái tháo đường,"Khám và điều trị các bệnh lý nội tiết, tiểu đường, tuyến giáp","tiểu đường,khát nước nhiều,sụt cân,bướu cổ,rối loạn nội tiết"

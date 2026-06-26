@@ -1,0 +1,21 @@
+{
+  "name": "datkham-suckhoe",
+  "version": "1.0.0",
+  "description": "He thong dat lich kham suc khoe online - Full stack (Node.js/Express + SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "csv-parse": "^5.5.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^4.4.1",
+    "nodemailer": "^6.9.14",
+    "qrcode": "^1.5.4"
+  }
+}

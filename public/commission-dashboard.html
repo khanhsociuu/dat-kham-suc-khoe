@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý hoa hồng — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Quản lý doanh thu</span>
+    <h1>Bảng điều khiển hoa hồng</h1>
+    <div id="guard-msg"></div>
+
+    <!-- Bộ lọc tháng -->
+    <div class="flex gap-12 mt-16" style="align-items:center;flex-wrap:wrap">
+      <div><label style="font-weight:600;font-size:14px">Tháng</label><br><input type="month" id="month-filter" style="padding:10px 14px;border-radius:9px;border:1.5px solid var(--line)"></div>
+      <div style="margin-top:20px"><button class="btn btn-primary btn-sm" id="refresh-btn">🔄 Cập nhật</button></div>
+    </div>
+
+    <!-- Tổng quan tháng -->
+    <div class="grid grid-4 mt-24" id="overview-cards"></div>
+
+    <div class="tabs mt-32">
+      <button class="tab-btn active" data-tab="by-clinic">Theo phòng khám</button>
+      <button class="tab-btn" data-tab="transactions">Chi tiết từng lịch hẹn</button>
+      <button class="tab-btn" data-tab="contracts">Hợp đồng</button>
+    </div>
+
+    <!-- Tab: Theo phòng khám -->
+    <div id="tab-by-clinic" class="tab-panel active mt-16">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phòng khám</th><th>Tỷ lệ HH</th><th>Lượt khám tháng</th><th>Hoa hồng tháng</th><th>HH chờ TT</th><th>Thao tác</th></tr></thead>
+          <tbody id="clinic-summary-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab: Chi tiết -->
+    <div id="tab-transactions" class="tab-panel mt-16">
+      <div class="flex gap-12 mb-16" style="flex-wrap:wrap">
+        <select id="filter-clinic-tx" style="padding:10px 14px;border-radius:9px;border:1.5px solid var(--line)"><option value="">Tất cả phòng khám</option></select>
+        <select id="filter-status-tx" style="padding:10px 14px;border-radius:9px;border:1.5px solid var(--line)">
+          <option value="">Tất cả trạng thái</option>
+          <option value="pending">Chờ thanh toán</option>
+          <option value="paid">Đã thanh toán</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" id="filter-tx-btn">Lọc</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#LH</th><th>Ngày khám</th><th>Phòng khám</th><th>Bệnh nhân</th><th>Bác sĩ</th><th>Tiền PK thu</th><th>Tỷ lệ</th><th>Hoa hồng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+          <tbody id="tx-body"><tr><td colspan="10" class="center muted">Chọn bộ lọc và bấm Lọc</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab: Hợp đồng -->
+    <div id="tab-contracts" class="tab-panel mt-16">
+      <button class="btn btn-primary btn-sm mb-16" id="add-contract-btn">+ Thêm / Sửa hợp đồng</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phòng khám</th><th>Tỷ lệ HH</th><th>Ngày bắt đầu</th><th>Người LH</th><th>SĐT</th><th>Ngân hàng</th><th>Số TK</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+          <tbody id="contracts-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal thêm/sửa hợp đồng -->
+<div class="modal-overlay" id="contract-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('contract-modal').classList.remove('open')">×</button>
+    <h3>Thêm / Cập nhật hợp đồng</h3>
+    <form id="contract-form">
+      <div class="form-row">
+        <div class="form-group"><label>Phòng khám</label><select id="cf-clinic" required></select></div>
+        <div class="form-group"><label>Tỷ lệ hoa hồng (%)</label><input type="number" id="cf-rate" value="20" min="0" max="100" step="0.5"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Ngày bắt đầu</label><input type="date" id="cf-start"></div>
+        <div class="form-group"><label>Ngày kết thúc (để trống = không giới hạn)</label><input type="date" id="cf-end"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Người liên hệ</label><input type="text" id="cf-contact"></div>
+        <div class="form-group"><label>SĐT liên hệ</label><input type="text" id="cf-phone"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Số tài khoản nhận hoa hồng</label><input type="text" id="cf-bank-acc"></div>
+        <div class="form-group"><label>Ngân hàng</label><input type="text" id="cf-bank-name"></div>
+      </div>
+      <div class="form-group">
+        <label>Trạng thái hợp đồng</label>
+        <select id="cf-status">
+          <option value="active">Đang hoạt động</option>
+          <option value="suspended">Tạm dừng</option>
+          <option value="terminated">Đã chấm dứt</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Ghi chú</label><textarea id="cf-note"></textarea></div>
+      <div id="contract-msg"></div>
+      <button class="btn btn-primary btn-block" type="submit">Lưu hợp đồng</button>
+    </form>
+  </div>
+</div>
+
+<div id="app-footer"></div>
+<script src="/js/common.js"></script>
+<script>
+const MONTHS = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+let allClinics = [];
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-' + b.dataset.tab).classList.add('active');
+  if (b.dataset.tab === 'transactions') loadTransactions();
+  if (b.dataset.tab === 'contracts') loadContracts();
+}));
+
+async function loadOverview() {
+  const month = document.getElementById('month-filter').value;
+  const data = await apiFetch('/commissions/summary?month=' + month);
+  const cards = document.getElementById('overview-cards');
+  const attending = data.summary.reduce((s,r)=>s+r.month_count,0);
+  cards.innerHTML = `
+    <div class="card card-body center"><b style="font-size:30px;color:var(--teal-700)">${attending}</b><div class="muted">Lượt khám xác nhận tháng ${month.slice(5)}</div></div>
+    <div class="card card-body center"><b style="font-size:30px;color:var(--coral-500)">${Number(data.total_month).toLocaleString('vi-VN')}đ</b><div class="muted">Tổng hoa hồng tháng ${month.slice(5)}</div></div>
+    <div class="card card-body center"><b style="font-size:30px;color:var(--warning)">${Number(data.total_pending).toLocaleString('vi-VN')}đ</b><div class="muted">Hoa hồng chờ thanh toán</div></div>
+    <div class="card card-body center"><b style="font-size:30px;color:var(--success)">${data.summary.filter(r=>r.month_count>0).length}</b><div class="muted">Phòng khám có lượt khám</div></div>`;
+
+  const body = document.getElementById('clinic-summary-body');
+  body.innerHTML = data.summary.map(r => `
+    <tr>
+      <td><b>${r.clinic_name}</b></td>
+      <td><span class="badge">${r.commission_rate}</span></td>
+      <td>${r.month_count}</td>
+      <td><b style="color:var(--coral-600)">${Number(r.month_total).toLocaleString('vi-VN')}đ</b></td>
+      <td style="color:var(--warning)">${Number(r.pending_total).toLocaleString('vi-VN')}đ</td>
+      <td>
+        ${r.pending_total > 0 ? `<button class="btn btn-primary btn-sm" onclick="bulkPay('${r.clinic_id}','${month}','${r.clinic_name}')">Đánh dấu đã TT</button>` : '<span class="muted">—</span>'}
+      </td>
+    </tr>`).join('') || '<tr><td colspan="6" class="muted center">Chưa có dữ liệu tháng này.</td></tr>';
+}
+
+async function bulkPay(clinicId, month, clinicName) {
+  if (!confirm(`Xác nhận đã nhận đủ hoa hồng tháng ${month} từ "${clinicName}"?`)) return;
+  const r = await apiFetch('/commissions/bulk-paid', { method:'POST', body: JSON.stringify({ clinic_id: clinicId, month }) });
+  alert(r.message);
+  loadOverview();
+}
+
+async function loadTransactions() {
+  const month = document.getElementById('month-filter').value;
+  const clinic = document.getElementById('filter-clinic-tx').value;
+  const status = document.getElementById('filter-status-tx').value;
+  const qs = new URLSearchParams({ month });
+  if (clinic) qs.set('clinic_id', clinic);
+  if (status) qs.set('status', status);
+  const data = await apiFetch('/commissions?' + qs);
+  const body = document.getElementById('tx-body');
+  if (!data.length) { body.innerHTML = '<tr><td colspan="10" class="muted center">Không có dữ liệu.</td></tr>'; return; }
+  body.innerHTML = data.map(r => `
+    <tr>
+      <td>#${r.appointment_id}</td>
+      <td>${r.appointment_date || '—'}</td>
+      <td style="font-size:13px">${r.clinic_name}</td>
+      <td style="font-size:13px">${r.patient_name}</td>
+      <td style="font-size:13px">${r.doctor_name}</td>
+      <td>${Number(r.amount_clinic).toLocaleString('vi-VN')}đ</td>
+      <td>${(r.commission_rate*100).toFixed(0)}%</td>
+      <td><b style="color:var(--coral-600)">${Number(r.commission_amount).toLocaleString('vi-VN')}đ</b></td>
+      <td>${r.status==='paid'?'<span class="badge" style="background:#dcfce7;color:#16a34a">✅ Đã TT</span>':'<span class="badge badge-coral">⏳ Chờ TT</span>'}</td>
+      <td>${r.status==='pending'?`<button class="btn btn-primary btn-sm" onclick="payOne(${r.id})">Đã nhận</button>`:'—'}</td>
+    </tr>`).join('');
+}
+
+async function payOne(id) {
+  await apiFetch('/commissions/' + id + '/paid', { method: 'PUT' });
+  loadTransactions(); loadOverview();
+}
+
+async function loadContracts() {
+  const data = await apiFetch('/commissions/contracts');
+  const body = document.getElementById('contracts-body');
+  body.innerHTML = data.map(c => `
+    <tr>
+      <td><b>${c.clinic_name}</b></td>
+      <td><b style="color:var(--coral-600)">${(c.commission_rate*100).toFixed(0)}%</b></td>
+      <td>${c.contract_start||'—'}</td>
+      <td>${c.contact_person||'—'}</td>
+      <td>${c.contact_phone||'—'}</td>
+      <td style="font-size:13px">${c.bank_name||'—'}</td>
+      <td style="font-size:13px">${c.bank_account||'—'}</td>
+      <td>${c.status==='active'?'<span class="badge">Hoạt động</span>':'<span class="badge badge-coral">'+c.status+'</span>'}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="editContract(${JSON.stringify(c).replace(/"/g,'&quot;')})">Sửa</button></td>
+    </tr>`).join('') || '<tr><td colspan="9" class="muted center">Chưa có hợp đồng.</td></tr>';
+}
+
+function editContract(c) {
+  document.getElementById('cf-clinic').value = c.clinic_id;
+  document.getElementById('cf-rate').value = (c.commission_rate*100).toFixed(1);
+  document.getElementById('cf-start').value = c.contract_start||'';
+  document.getElementById('cf-end').value = c.contract_end||'';
+  document.getElementById('cf-contact').value = c.contact_person||'';
+  document.getElementById('cf-phone').value = c.contact_phone||'';
+  document.getElementById('cf-bank-acc').value = c.bank_account||'';
+  document.getElementById('cf-bank-name').value = c.bank_name||'';
+  document.getElementById('cf-status').value = c.status||'active';
+  document.getElementById('cf-note').value = c.note||'';
+  document.getElementById('contract-modal').classList.add('open');
+}
+
+document.getElementById('add-contract-btn').addEventListener('click', () => {
+  document.getElementById('contract-form').reset();
+  document.getElementById('contract-modal').classList.add('open');
+});
+
+document.getElementById('contract-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('contract-msg');
+  const payload = {
+    clinic_id: document.getElementById('cf-clinic').value,
+    commission_rate: Number(document.getElementById('cf-rate').value) / 100,
+    contract_start: document.getElementById('cf-start').value,
+    contract_end: document.getElementById('cf-end').value || null,
+    contact_person: document.getElementById('cf-contact').value,
+    contact_phone: document.getElementById('cf-phone').value,
+    bank_account: document.getElementById('cf-bank-acc').value,
+    bank_name: document.getElementById('cf-bank-name').value,
+    status: document.getElementById('cf-status').value,
+    note: document.getElementById('cf-note').value,
+  };
+  try {
+    const r = await apiFetch('/commissions/contracts', { method:'POST', body: JSON.stringify(payload) });
+    msg.innerHTML = `<div class="alert alert-success">${r.message}</div>`;
+    setTimeout(() => { document.getElementById('contract-modal').classList.remove('open'); loadContracts(); }, 1200);
+  } catch(err) { msg.innerHTML = `<div class="alert alert-error">${err.error||'Lỗi lưu hợp đồng'}</div>`; }
+});
+
+document.getElementById('filter-tx-btn').addEventListener('click', loadTransactions);
+document.getElementById('refresh-btn').addEventListener('click', () => { loadOverview(); loadTransactions(); });
+
+async function init() {
+  const { user } = await apiFetch('/auth/me');
+  if (!user || user.role !== 'admin') {
+    document.getElementById('guard-msg').innerHTML = `<div class="alert alert-error">Chỉ admin mới xem được trang này. <a href="/login.html">Đăng nhập admin</a></div>`;
+    return;
+  }
+  const now = new Date();
+  document.getElementById('month-filter').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+
+  allClinics = await apiFetch('/clinics');
+  const clinicOpts = allClinics.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('filter-clinic-tx').innerHTML += clinicOpts;
+  document.getElementById('cf-clinic').innerHTML = clinicOpts;
+
+  loadOverview();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+facility_id,title,icon,description,image
+FC01,Khu vực tiếp đón & chờ khám,🛋️,"Không gian rộng rãi, thoáng mát, có nước uống miễn phí và màn hình gọi số tự động giúp bạn theo dõi thứ tự khám mà không cần xếp hàng chờ đợi.",https://picsum.photos/seed/fac1/600/360
+FC02,Phòng khám lâm sàng,🩺,"Mỗi phòng khám chuyên khoa được trang bị đầy đủ dụng cụ thăm khám tiêu chuẩn (huyết áp kế, ống nghe, cân điện tử...), đảm bảo riêng tư cho bệnh nhân.",https://picsum.photos/seed/fac2/600/360
+FC03,Phòng xét nghiệm,🧪,"Hệ thống máy xét nghiệm sinh hóa và huyết học tự động hiện đại, trả kết quả nhanh trong ngày, hỗ trợ bác sĩ chẩn đoán chính xác.",https://picsum.photos/seed/fac3/600/360
+FC04,Phòng chẩn đoán hình ảnh,🩻,Máy siêu âm 2D/Doppler màu và máy X-quang kỹ thuật số giúp phát hiện sớm các bất thường về cấu trúc cơ thể.,https://picsum.photos/seed/fac4/600/360
+FC05,Phòng tiêm chủng & thủ thuật,💉,"Khu vực tiêm chủng, tiểu phẫu vô trùng theo quy chuẩn Bộ Y tế, đảm bảo an toàn cho cả người lớn và trẻ em.",https://picsum.photos/seed/fac5/600/360
+FC06,Quầy thuốc tại chỗ,💊,"Cung cấp thuốc theo đơn ngay tại phòng khám, dược sĩ tư vấn cách sử dụng thuốc an toàn, tiết kiệm thời gian di chuyển.",https://picsum.photos/seed/fac6/600/360

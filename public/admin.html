@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị hệ thống — SứcKhỏeOnline</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app-header"></div>
+
+<section class="section-tight">
+  <div class="container">
+    <span class="eyebrow">Khu vực quản trị</span>
+    <h1>Bảng điều khiển Admin</h1>
+    <div id="guard-msg"></div>
+
+    <div id="stats-row" class="grid grid-4 mt-16"></div>
+
+    <div class="tabs mt-32" id="admin-tabs">
+      <button class="tab-btn active" data-tab="clinics">Phòng khám</button>
+      <button class="tab-btn" data-tab="doctors">Bác sĩ</button>
+      <button class="tab-btn" data-tab="specialties">Chuyên khoa</button>
+      <button class="tab-btn" data-tab="pricing">Bảng giá</button>
+      <button class="tab-btn" data-tab="articles">Cẩm nang sức khỏe</button>
+      <button class="tab-btn" data-tab="facilities">Cơ sở vật chất</button>
+      <button class="tab-btn" data-tab="appointments">Lịch hẹn</button>
+      <button class="tab-btn" data-tab="users">Người dùng</button>
+    </div>
+
+    <div class="flex-between mt-16">
+      <span></span>
+      <button class="btn btn-primary btn-sm" id="add-btn">+ Thêm mới</button>
+    </div>
+
+    <div class="table-wrap mt-16">
+      <table>
+        <thead id="table-head"></thead>
+        <tbody id="table-body"><tr><td><div class="spinner"></div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">×</button>
+    <h3 id="modal-title">Thêm mới</h3>
+    <form id="modal-form"></form>
+  </div>
+</div>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

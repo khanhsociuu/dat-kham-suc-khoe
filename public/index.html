@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SứcKhỏeOnline — Đặt lịch khám sức khỏe online nhanh, tiện, đúng chuyên khoa</title>
+<meta name="description" content="Đặt lịch khám sức khỏe online tại các phòng khám gần nhà. Chọn đúng chuyên khoa, đúng bác sĩ, tự động nhắc lịch qua email. Nhanh chóng, tiện lợi, hoàn toàn miễn phí.">
+<meta name="keywords" content="đặt lịch khám, phòng khám gần nhà, bác sĩ, khám sức khỏe online, đặt hẹn bác sĩ">
+<meta property="og:title" content="SứcKhỏeOnline — Đặt lịch khám sức khỏe online">
+<meta property="og:description" content="Tìm phòng khám gần nhà, chọn đúng chuyên khoa, đặt lịch trong 3 phút">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+.hero-badge { display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;color:var(--teal-700);margin-bottom:20px;box-shadow:var(--shadow); }
+.trust-bar { background:var(--teal-900);color:#fff;padding:16px 0; }
+.trust-bar-inner { display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap; }
+.trust-item { display:flex;align-items:center;gap:8px;font-size:14px; }
+.review-card { background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px; }
+.star-full { color:#f59e0b; }
+.cta-section { background:linear-gradient(135deg,var(--teal-700),var(--teal-900));color:#fff;padding:64px 0;text-align:center;border-radius:24px;margin:0 24px; }
+</style>
+</head>
+<body>
+<div id="app-header"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge">🏆 Nền tảng y tế được tin dùng — <span id="appt-count">...</span> lượt đặt lịch</div>
+      <h1>Đặt lịch khám sức khỏe online — gần nhà, đúng bác sĩ, không chờ đợi</h1>
+      <p class="lead">Tìm phòng khám gần nhà, chọn chuyên khoa theo triệu chứng và đặt lịch với bác sĩ phù hợp chỉ trong 3 phút. Tự động nhắc lịch qua email.</p>
+      <div class="hero-actions">
+        <a href="/booking.html" class="btn btn-primary" style="font-size:17px;padding:16px 30px">Đặt lịch miễn phí →</a>
+        <a href="/clinics.html" class="btn btn-outline">Xem phòng khám</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b id="stat-clinics">6+</b><span>Phòng khám</span></div>
+        <div class="hero-stat"><b id="stat-doctors">14+</b><span>Bác sĩ chuyên khoa</span></div>
+        <div class="hero-stat"><b>9</b><span>Chuyên khoa</span></div>
+        <div class="hero-stat"><b>⭐ 4.8</b><span>Đánh giá trung bình</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="https://picsum.photos/seed/herohealth2/720/560" alt="Bác sĩ tư vấn khám bệnh online">
+      <div style="position:absolute;bottom:20px;left:20px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:var(--shadow-lg);max-width:220px">
+        <div style="font-weight:700;color:var(--teal-900);font-size:14px">✅ Vừa đặt lịch thành công</div>
+        <div style="font-size:12px;color:var(--ink-500);margin-top:4px">Nguyễn Thị M. • Tim mạch • 09:30</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner container">
+    <div class="trust-item">🔒 Bảo mật thông tin</div>
+    <div class="trust-item">⏱️ Đặt lịch trong 3 phút</div>
+    <div class="trust-item">📧 Nhắc lịch tự động qua email</div>
+    <div class="trust-item">🆓 Hoàn toàn miễn phí với bệnh nhân</div>
+    <div class="trust-item">🏥 6 phòng khám liên kết</div>
+  </div>
+</div>
+
+<!-- CHUYÊN KHOA -->
+<section class="section-tight" style="padding-top:48px">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Chuyên khoa</span>
+      <h2>Khám theo triệu chứng của bạn</h2>
+      <p>Nhập triệu chứng hoặc chọn chuyên khoa để hệ thống gợi ý đúng bác sĩ phù hợp.</p>
+    </div>
+    <div class="grid grid-4" id="specialty-grid"><div class="spinner"></div></div>
+    <div class="center mt-24"><a href="/booking.html" class="btn btn-outline">Xem tất cả chuyên khoa →</a></div>
+  </div>
+</section>
+
+<!-- QUY TRÌNH -->
+<section class="section" style="background:var(--mint-100)">
+  <div class="container">
+    <div class="section-head center" style="max-width:100%">
+      <span class="eyebrow">Cách hoạt động</span>
+      <h2>Đặt lịch chỉ 4 bước đơn giản</h2>
+    </div>
+    <div class="grid grid-4">
+      <div style="text-align:center;padding:24px">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--teal-700);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">1</div>
+        <h4>Chọn phòng khám gần nhà</h4>
+        <p style="font-size:14px">Hệ thống tính khoảng cách từ khu vực của bạn, gợi ý phòng khám gần nhất.</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--teal-700);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">2</div>
+        <h4>Nhập triệu chứng</h4>
+        <p style="font-size:14px">Hệ thống tự gợi ý chuyên khoa phù hợp, không cần biết trước mình nên khám gì.</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--teal-700);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">3</div>
+        <h4>Chọn bác sĩ &amp; giờ khám</h4>
+        <p style="font-size:14px">Xem hồ sơ bác sĩ, chọn ngày giờ phù hợp. Hệ thống tự kiểm tra trùng lịch.</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--coral-500);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">✓</div>
+        <h4>Nhận xác nhận &amp; nhắc lịch</h4>
+        <p style="font-size:14px">Email xác nhận có mã QR gửi ngay, nhắc lịch tự động trước giờ hẹn 24h.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BÁC SĨ NỔI BẬT -->
+<section class="section-tight">
+  <div class="container">
+    <div class="flex-between" style="margin-bottom:20px">
+      <div><span class="eyebrow">Đội ngũ bác sĩ</span><h2 style="margin:0">Bác sĩ nổi bật</h2></div>
+      <a href="/doctors.html" class="btn btn-outline btn-sm">Xem tất cả</a>
+    </div>
+    <div class="grid grid-4" id="featured-doctors"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ĐÁNH GIÁ THẬT -->
+<section class="section-tight" style="background:var(--mint-100)">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Bệnh nhân nói gì</span>
+      <h2>Đánh giá thật từ người dùng</h2>
+    </div>
+    <div class="grid grid-3" id="reviews-section">
+      <!-- fallback nếu chưa có đánh giá thật -->
+      <div class="review-card"><div class="star-full">⭐⭐⭐⭐⭐</div><p style="margin-top:10px">"Đặt lịch rất dễ, không phải chờ lâu. Bác sĩ khám kỹ và tư vấn rõ ràng."</p><div style="font-size:13px;color:var(--ink-500)">— Nguyễn Thị Hương, Hà Nội</div></div>
+      <div class="review-card"><div class="star-full">⭐⭐⭐⭐⭐</div><p style="margin-top:10px">"Web dễ dùng, có nhắc lịch qua email rất tiện. Phòng khám sạch sẽ, nhân viên nhiệt tình."</p><div style="font-size:13px;color:var(--ink-500)">— Trần Văn Minh, TP.HCM</div></div>
+      <div class="review-card"><div class="star-full">⭐⭐⭐⭐</div><p style="margin-top:10px">"Tự động gợi ý chuyên khoa theo triệu chứng rất hay, không biết khám gì cũng tìm ra ngay."</p><div style="font-size:13px;color:var(--ink-500)">— Lê Thị Thu, Hà Nội</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BÀI VIẾT -->
+<section class="section-tight">
+  <div class="container">
+    <div class="flex-between" style="margin-bottom:20px">
+      <div><span class="eyebrow">Cẩm nang sức khỏe</span><h2 style="margin:0">Kiến thức y khoa mới nhất</h2></div>
+      <a href="/health-guide.html" class="btn btn-outline btn-sm">Xem tất cả</a>
+    </div>
+    <div class="grid grid-3" id="home-articles"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="cta-section">
+    <h2 style="color:#fff;font-size:32px">Sẵn sàng đặt lịch khám?</h2>
+    <p style="color:rgba(255,255,255,.85);font-size:17px;max-width:480px;margin:0 auto 28px">Tìm phòng khám gần nhà, chọn đúng bác sĩ — chỉ mất 3 phút. Hoàn toàn miễn phí với bệnh nhân.</p>
+    <a href="/booking.html" class="btn btn-primary" style="font-size:17px;padding:16px 36px;background:#fff;color:var(--teal-700)">Đặt lịch ngay →</a>
+  </div>
+</section>
+
+<div id="app-footer"></div>
+<div id="chatbot-widget"></div>
+<script src="/js/common.js"></script>
+<script>
+async function loadPage() {
+  // Stats
+  try {
+    const clinics = await apiFetch('/clinics');
+    const { doctors } = await apiFetch('/doctors');
+    const appts = await apiFetch('/appointments').catch(()=>null);
+    document.getElementById('stat-clinics').textContent = clinics.length + '+';
+    document.getElementById('stat-doctors').textContent = doctors.length + '+';
+    if (appts) document.getElementById('appt-count').textContent = appts.length.toLocaleString('vi-VN');
+  } catch(e) {}
+
+  // Chuyên khoa
+  try {
+    const specs = await apiFetch('/specialties');
+    const ICONS = {'SP01':'🩺','SP02':'❤️','SP03':'👶','SP04':'🤱','SP05':'🦴','SP06':'🧴','SP07':'👂','SP08':'👁️','SP09':'💉'};
+    document.getElementById('specialty-grid').innerHTML = specs.map(s => `
+      <a href="/booking.html?symptom=${encodeURIComponent(s.name)}" class="card card-body" style="text-align:center;cursor:pointer;text-decoration:none">
+        <div style="font-size:32px;margin-bottom:8px">${ICONS[s.id]||'🏥'}</div>
+        <h4 style="font-size:15px;margin:0">${s.name}</h4>
+        <p style="font-size:12px;color:var(--ink-500);margin-top:6px">${s.description.slice(0,50)}...</p>
+      </a>`).join('');
+  } catch(e){}
+
+  // Bác sĩ nổi bật
+  try {
+    const { doctors } = await apiFetch('/doctors');
+    const top = [...doctors].sort((a,b)=>b.rating-a.rating).slice(0,4);
+    document.getElementById('featured-doctors').innerHTML = top.map(d => `
+      <div class="card card-body" style="text-align:center">
+        <img src="${d.image}" style="width:70px;height:70px;border-radius:50%;margin:0 auto 12px;display:block">
+        <h4 style="font-size:15px">${d.full_name}</h4>
+        <span class="badge">${d.specialty_name}</span>
+        <div style="color:var(--warning);font-weight:700;margin:8px 0">⭐ ${d.rating}</div>
+        <p style="font-size:13px;color:var(--ink-500)">${d.experience_years} năm KN</p>
+        <a href="/booking.html?doctor_id=${d.id}" class="btn btn-primary btn-sm btn-block">Đặt lịch</a>
+      </div>`).join('');
+  } catch(e){}
+
+  // Đánh giá thật (nếu có)
+  try {
+    const reviews = await apiFetch('/appointments/reviews');
+    if (reviews && reviews.length >= 3) {
+      document.getElementById('reviews-section').innerHTML = reviews.slice(0,3).map(r => `
+        <div class="review-card">
+          <div class="star-full">${'⭐'.repeat(r.rating)}</div>
+          <p style="margin-top:10px">"${r.comment||'Dịch vụ tốt!'}"</p>
+          <div style="font-size:13px;color:var(--ink-500)">— ${r.reviewer_name||'Người dùng ẩn danh'} • ${r.doctor_name}</div>
+        </div>`).join('');
+    }
+  } catch(e){}
+
+  // Bài viết
+  try {
+    const articles = await apiFetch('/articles');
+    document.getElementById('home-articles').innerHTML = articles.slice(0,3).map(a => `
+      <a href="/health-guide.html?id=${a.id}" class="card" style="text-decoration:none">
+        <img class="card-img" src="${a.image}" alt="${a.title}" style="height:170px;object-fit:cover">
+        <div class="card-body"><span class="badge">${a.category}</span><h4 class="mt-8">${a.title}</h4><p style="font-size:14px">${a.summary}</p></div>
+      </a>`).join('');
+  } catch(e){}
+}
+loadPage();
+</script>
+</body>
+</html>
